@@ -28,7 +28,7 @@ variable "public_network_access_enabled" {
 }
 
 variable "network_acls" {
-  description = "Object with attributes: `default_action`, `ip_rules`. Set to `null` to disable. See https://www.terraform.io/docs/providers/azurerm/r/key_vault.html#bypass for more information."
+  description = "(Optional) Specifies the network ACLs for the Azure OpenAI Service. See https://www.terraform.io/docs/providers/azurerm/r/cognitive_account.html#network_acls for more information."
   type = object({
     default_action                       = optional(string, "Deny"),
     ip_rules                             = optional(list(string)),
@@ -43,7 +43,7 @@ variable "network_acls" {
 #############################################
 
 variable "customer_managed_key" {
-  description = "Object with attributes: `key_vault_key_id`, `identity_client_id`. Set to `null` to disable. See https://www.terraform.io/docs/providers/azurerm/r/key_vault.html#bypass for more information."
+  description = "(Optional) Specifies the customer managed key for the Azure OpenAI Service. See https://www.terraform.io/docs/providers/azurerm/r/cognitive_account.html#customer_managed_key for more information.)"
   type = object({
     key_vault_key_id   = optional(string),
     identity_client_id = optional(string),
@@ -52,7 +52,7 @@ variable "customer_managed_key" {
 }
 
 variable "storage" {
-  description = "Object with attributes: `storage_account_id`, `identity_client_id`. Set to `null` to disable. See https://www.terraform.io/docs/providers/azurerm/r/key_vault.html#bypass for more information."
+  description = "(Optional) Specifies the storage account for the Azure OpenAI Service. See https://www.terraform.io/docs/providers/azurerm/r/cognitive_account.html#storage for more information."
   type = object({
     storage_account_id = optional(string),
     identity_client_id = optional(string),
