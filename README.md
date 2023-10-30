@@ -18,7 +18,10 @@ More details are available in the [CONTRIBUTING.md](./CONTRIBUTING.md#pull-reque
 
 ## Resources Used
 
-- Azure Cognitive Account
+* [Azure Cognitive Account](https://www.terraform.io/docs/providers/azurerm/r/cognitive_account.html)
+* [Private Endpoints](https://www.terraform.io/docs/providers/azurerm/r/private_endpoint.html)
+* [Private DNS zone for `privatelink` A records](https://www.terraform.io/docs/providers/azurerm/r/private_dns_zone.html)
+* [Azure Reource Locks](https://www.terraform.io/docs/providers/azurerm/r/management_lock.html)
 
 ## Module Usage
 
