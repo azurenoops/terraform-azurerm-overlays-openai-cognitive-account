@@ -73,3 +73,9 @@ variable "identity_ids" {
   type        = list(string)
   default     = null
 }
+
+variable "user_assigned_identity_principal_id" {
+  description = "Specifies the principal ID of a User Assigned Managed Identity to be assigned to this Cognitive Account."
+  type        = string
+  default     = null  
+}

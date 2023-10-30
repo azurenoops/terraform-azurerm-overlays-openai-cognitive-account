@@ -10,34 +10,31 @@ variable "deployments" {
   type = list(object({
     name = string
     model = object({
-      name = string
+      name    = string
       version = string
     })
     scale = optional(object({
-      type     = string
-      tier     = string
-      size     = string
-      family   = string
-      capacity = number
+      type     = optional(string)
+      tier     = optional(string)
+      size     = optional(string)
+      family   = optional(string)
+      capacity = optional(number)
     }))
-    rai_policy_name = string  
+    rai_policy_name = string
   }))
   default = [
     {
       name = "gpt-35-turbo"
       model = {
-        name = "gpt-35-turbo"
+        name    = "gpt-35-turbo"
         version = "0301"
       }
       scale = {
-        type     = "Standard"
-        tier     = "Free"
-        size     = "S1"
-        family   = "S"
-        capacity = 1
+        type = "Standard"
       }
       rai_policy_name = ""
     }
-  ] 
+  ]
 }
+
 
