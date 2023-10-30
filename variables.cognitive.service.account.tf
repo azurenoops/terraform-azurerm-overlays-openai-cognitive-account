@@ -30,8 +30,10 @@ variable "public_network_access_enabled" {
 variable "network_acls" {
   description = "Object with attributes: `default_action`, `ip_rules`. Set to `null` to disable. See https://www.terraform.io/docs/providers/azurerm/r/key_vault.html#bypass for more information."
   type = object({
-    default_action = optional(string, "Deny"),
-    ip_rules       = optional(list(string)),
+    default_action                       = optional(string, "Deny"),
+    ip_rules                             = optional(list(string)),
+    subnet_id                            = optional(string),
+    ignore_missing_vnet_service_endpoint = optional(bool, false)
   })
   default = {}
 }

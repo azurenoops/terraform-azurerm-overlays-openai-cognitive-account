@@ -12,7 +12,7 @@ resource "azurerm_cognitive_account" "openai" {
   custom_subdomain_name         = var.custom_subdomain_name
   sku_name                      = var.sku_name
   public_network_access_enabled = var.public_network_access_enabled
-  
+
   dynamic "identity" {
     for_each = var.identity_type == null ? [] : ["enabled"]
     content {
@@ -26,8 +26,12 @@ resource "azurerm_cognitive_account" "openai" {
     iterator = acl
 
     content {
-      default_action        = acl.value.default_action
-      ip_rules              = acl.value.ip_rules 
+      default_action = acl.value.default_action
+      ip_rules       = acl.value.ip_rules
+      virtual_network_rules {
+        subnet_id = acl.value.subnet_id
+        ignore_missing_vnet_service_endpoint = acl.value.ignore_missing_vnet_service_endpoint
+      }
     }
   }
 
@@ -36,7 +40,7 @@ resource "azurerm_cognitive_account" "openai" {
     iterator = cmk
 
     content {
-      key_vault_key_id = cmk.value.key_vault_key_id
+      key_vault_key_id   = cmk.value.key_vault_key_id
       identity_client_id = cmk.value.identity_client_id
     }
   }
@@ -57,5 +61,5 @@ resource "azurerm_cognitive_account" "openai" {
     ]
   }
 
-   tags = merge(local.default_tags, var.add_tags)
+  tags = merge(local.default_tags, var.add_tags)
 }
