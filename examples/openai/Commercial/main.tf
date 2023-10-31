@@ -4,11 +4,11 @@ module "cognitive_account_openai" {
 
   //version = "~> 1.0.0"
 
-  depends_on = [ azurerm_resource_group.openai_rg ]
+  depends_on = [azurerm_resource_group.openai-rg]
 
   //Global Settings
   # Resource Group, location, VNet and Subnet details
-  existing_resource_group_name = azurerm_resource_group.openai_rg.name
+  existing_resource_group_name = azurerm_resource_group.openai-rg.name
   location                     = var.location
   environment                  = var.environment
   deploy_environment           = var.deploy_environment
@@ -20,9 +20,14 @@ module "cognitive_account_openai" {
   custom_subdomain_name         = var.openai_custom_subdomain_name
   public_network_access_enabled = var.openai_public_network_access_enabled
 
+  #  Private Endpoint Settings
+  enable_private_endpoint       = true
+  existing_virtual_network_name = azurerm_virtual_network.openai-vnet.name
+  existing_private_subnet_name  = azurerm_subnet.openai-snet.name
   network_acls = {
     default_action = "Deny"
-    ip_rules       = ["10.0.0.1"]
-    subnet_id      = "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-name/providers/Microsoft.Network/virtualNetworks/vnet-name/subnets/subnet-name"
+    subnet_id      = azurerm_subnet.openai-snet.id
+    ip_rules       = ["${azurerm_subnet.openai-snet.address_prefixes[0]}"]
   }
 }
+
